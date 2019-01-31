@@ -1,3 +1,4 @@
+from subprocess import call
 import time
 
 import redis
@@ -22,8 +23,7 @@ def get_hit_count():
 
 @app.route('/')
 def hello():
-    count = get_hit_count()
-    return 'Hello World! This is Victorias message. I have been seen {} times.\n'.format(count)
+    return 'Docker container hostname: and ip: {}'.format(call('docker inspect <container id> | grep "IPAddress"',shell=True))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
